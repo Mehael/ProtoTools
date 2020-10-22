@@ -103,6 +103,6 @@ public static class ExtensionMethods
     
     public static Vector3 ToVector3(this Vector2 vector2)
     {
-        return new Vector3(Vector2.x, Vector2.y, 0);
+        return new Vector3(vector2.x, vector2.y, 0);
     }
 }

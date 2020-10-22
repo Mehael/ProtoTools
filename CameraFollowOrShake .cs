@@ -10,7 +10,7 @@ public class CameraFollowOrShake : MonoBehaviour
     public Vector3 TargetShift;
     public float DampingSpeed; //1f
 
-    private static CameraFollow instance;
+    private static CameraFollowOrShake instance;
     private Vector3 currentVelocity;
     private static bool isCoroutineControlled;
     private void Awake()
