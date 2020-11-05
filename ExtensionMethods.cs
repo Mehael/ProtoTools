@@ -116,4 +116,15 @@ public static class ExtensionMethods
         return new Vector2((viewportPosition.x * sizeDelta.x) - (sizeDelta.x * 0.5f),
             (viewportPosition.y * sizeDelta.y) - (sizeDelta.y * 0.5f));
     }
+
+    public static void LookAt2d(this Transform transform, Transform target)
+    {
+        var diff = target.position - transform.position;
+        diff.Normalize();
+ 
+        var rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90); 
+    }
+    
+
 }
