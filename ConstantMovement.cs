@@ -7,7 +7,7 @@ using UnityEngine;
 public class ConstantMovement : MonoBehaviour
 {
     private Rigidbody2D rBody;
-    public Vector2 velocity;
+    public float velocity;
     private void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
@@ -15,6 +15,6 @@ public class ConstantMovement : MonoBehaviour
 
     private void Update()
     {
-        rBody.velocity = velocity;
+        rBody.velocity = velocity * transform.up;
     }
 }
