@@ -11,4 +11,9 @@ public class DestoryAfterTimer : MonoBehaviour
         yield return new WaitForSeconds(timer);
         Destroy(gameObject);
     }
+
+    public void InstantKill()
+    {
+        Destroy(gameObject); 
+    }
 }
