@@ -9,19 +9,24 @@ public class ConstantMovement : MonoBehaviour
     private Rigidbody2D rBody;
     public float velocity;
     public float delay = 0;
+    public float lifeTime;
     private void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private IEnumerator Start()
     {
-        if (delay > 0)
+        yield return new WaitForSeconds(delay);
+        var t = 0f;
+        while (lifeTime < float.Epsilon || t < lifeTime)
         {
-            delay -= Time.deltaTime;
-            return;
+            rBody.velocity = velocity * transform.up;
+            t += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
         }
-        
-        rBody.velocity = velocity * transform.up;
+        rBody.velocity = Vector2.zero;
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 }
