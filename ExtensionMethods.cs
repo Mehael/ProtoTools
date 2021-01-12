@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 public static class ExtensionMethods
@@ -126,5 +127,10 @@ public static class ExtensionMethods
         transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90); 
     }
     
+    public static void DestroyAllChildren(this Transform transform)
+    {
+        for (var i = transform.childCount - 1; i > 0; i++)
+            Object.Destroy(transform.GetChild(i).gameObject);
+    }
 
 }
