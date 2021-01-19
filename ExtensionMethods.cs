@@ -29,6 +29,26 @@ public static class ExtensionMethods
         callback?.Invoke();
     }
     
+    public static IEnumerator MoveTo(this Transform transform, Transform target, float speed = DefaultMovementSpeed, 
+        Action callback = null)
+    {
+        var start = transform.position;
+        var t = 0f;
+        while (t <= 1.0f) {
+            t += Time.deltaTime * speed; // Goes from 0 to 1, incrementing by step each time
+            if (transform == null)
+                yield break;
+            
+            transform.position = Vector3.Lerp(start, target.transform.position, t);
+            yield return new WaitForEndOfFrame();       
+        }
+        
+        if (transform != null)
+            transform.position = target.position;
+
+        callback?.Invoke();
+    }
+    
     public static IEnumerator LocalMoveTo(this Transform transform, Vector3 target, float speed = DefaultMovementSpeed)
     {
         var start = transform.localPosition;
