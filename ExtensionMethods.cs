@@ -157,11 +157,11 @@ public static class ExtensionMethods
 
     public static T GetRandom<T>(this List<T> list)
     {
-        return list[Random.Range(0, list.Count - 1)];
+        return list[Random.Range(0, list.Count)];
     }
 
     public static Transform GetRandomChild(this Transform transform)
     {
-        return transform.GetChild(Random.Range(0, transform.childCount - 1));
+        return transform.GetChild(Random.Range(0, transform.childCount));
     }
 }
