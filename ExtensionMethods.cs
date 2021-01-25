@@ -153,4 +153,15 @@ public static class ExtensionMethods
             Object.Destroy(transform.GetChild(i).gameObject);
     }
 
+    public static float GetRandomPercent => Random.Range(0, 1f);
+
+    public static T GetRandom<T>(this List<T> list)
+    {
+        return list[Random.Range(0, list.Count - 1)];
+    }
+
+    public static Transform GetRandomChild(this Transform transform)
+    {
+        return transform.GetChild(Random.Range(0, transform.childCount - 1));
+    }
 }
