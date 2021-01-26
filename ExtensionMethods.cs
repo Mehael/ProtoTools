@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -163,5 +164,20 @@ public static class ExtensionMethods
     public static Transform GetRandomChild(this Transform transform)
     {
         return transform.GetChild(Random.Range(0, transform.childCount));
+    }
+
+    public static TKey RandomByWeight<TKey>(this Dictionary<TKey, int> dictionary)
+    {
+        var weightSum = dictionary.Sum(pair => pair.Value);
+        var roll = Random.Range(0, weightSum);
+        var skippedWeight = 0;
+        foreach (var key in dictionary.Keys)
+        {
+            skippedWeight += dictionary[key];
+            if (skippedWeight >= roll)
+                return key;
+        }
+
+        return dictionary.FirstOrDefault().Key;
     }
 }
