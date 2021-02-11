@@ -180,4 +180,10 @@ public static class ExtensionMethods
 
         return dictionary.FirstOrDefault().Key;
     }
+    
+    public static bool Contains<T>(this Tuple<T, T> tuple, T a, T b)
+    {
+        return (tuple.Item1.Equals(a) && tuple.Item2.Equals(b))
+               || (tuple.Item1.Equals(b) && tuple.Item2.Equals(a));
+    }
 }
