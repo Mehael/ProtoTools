@@ -53,9 +53,11 @@ public static class ExtensionMethods
     public static IEnumerator LocalMoveTo(this Transform transform, Vector3 target, float speed = DefaultMovementSpeed)
     {
         var start = transform.localPosition;
+        var distance = (target - start).magnitude;
+        var time = distance / speed;
         var t = 0f;
         while (t <= 1.0f) {
-            t += Time.deltaTime * speed; 
+            t += Time.deltaTime / time; 
             if (transform == null)
                 yield break;
             
