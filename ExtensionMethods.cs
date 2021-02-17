@@ -33,16 +33,22 @@ public static class ExtensionMethods
     public static IEnumerator MoveTo(this Transform transform, Transform target, float speed = DefaultMovementSpeed, 
         Action callback = null)
     {
-        var start = transform.position;
-        var t = 0f;
-        while (t <= 1.0f) {
-            t += Time.deltaTime * speed; // Goes from 0 to 1, incrementing by step each time
-            if (transform == null)
+        var distance = 0f;
+        var delta = Vector3.zero;
+        do
+        {
+            if (transform == null || target == null)
                 yield break;
             
-            transform.position = Vector3.Lerp(start, target.transform.position, t);
-            yield return new WaitForEndOfFrame();       
-        }
+            transform.Translate(delta);
+            
+            var direction = target.transform.position - transform.position;
+            distance = direction.magnitude;
+            direction = direction.normalized;
+
+            delta = Time.deltaTime * speed * direction;
+            yield return new WaitForEndOfFrame();
+        } while (delta.magnitude < distance);
         
         if (transform != null)
             transform.position = target.position;
