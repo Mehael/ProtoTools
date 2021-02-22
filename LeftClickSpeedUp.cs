@@ -7,12 +7,19 @@ public class LeftClickSpeedUp : MonoBehaviour
 {
     public static bool isFast;
     private static LeftClickSpeedUp instance;
+    public bool isDenied;
 
     private void Awake()
     {
         instance = this;
+        if (isDenied)
+        {
+            Time.timeScale = 1;
+            Time.fixedDeltaTime = .02f * Time.timeScale;
+            Destroy(this);
+        }
     }
-    
+
     void Update()
     {
         if (Input.GetMouseButton(1) != isFast)
