@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
- 
+
+#if UNITY_EDITOR
 namespace EditorExtensions.MenuItems {
     public static class ReserializeAssets {
         [MenuItem("Tools/Force Re-Serialize Assets")]
@@ -8,3 +9,4 @@ namespace EditorExtensions.MenuItems {
         }
     }
 }
+#endif
