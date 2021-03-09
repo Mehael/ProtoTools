@@ -169,9 +169,9 @@ public static class ExtensionMethods
         return list[Random.Range(0, list.Count)];
     }
 
-    public static float GetYRotFromVec(this Vector3 vector)
+    public static float GetZRotFromVec(this Vector3 vector)
     {
-        return Mathf.Atan2(vector.x, vector.y) / Mathf.PI * 180;
+        return Mathf.Asin(vector.normalized.x) * Mathf.Rad2Deg;
     }
 
     public static Transform GetRandomChild(this Transform transform)
