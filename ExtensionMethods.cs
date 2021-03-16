@@ -150,10 +150,7 @@ public static class ExtensionMethods
     public static void LookAt2d(this Transform transform, Transform target)
     {
         var diff = target.position - transform.position;
-        diff.Normalize();
- 
-        var rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90); 
+        transform.rotation = diff.GetRotation(); 
     }
     
     public static void DestroyAllChildren(this Transform transform)
@@ -169,9 +166,11 @@ public static class ExtensionMethods
         return list[Random.Range(0, list.Count)];
     }
 
-    public static float GetZRotFromVec(this Vector3 vector)
+    public static Quaternion GetRotation(this Vector3 vector)
     {
-        return Mathf.Asin(vector.normalized.x) * Mathf.Rad2Deg;
+        var diff = vector.normalized;
+        var rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        return Quaternion.Euler(0f, 0f, rot_z - 90);
     }
 
     public static Transform GetRandomChild(this Transform transform)
