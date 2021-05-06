@@ -152,11 +152,12 @@ public static class ExtensionMethods
         var diff = target.position - transform.position;
         transform.rotation = diff.GetRotation(); 
     }
-    
+
     public static void DestroyAllChildren(this Transform transform)
     {
-        for (var i = transform.childCount - 1; i > 0; i++)
-            Object.Destroy(transform.GetChild(i).gameObject);
+        if (transform.childCount > 0)
+            for (var i = transform.childCount - 1; i >= 0; i--)
+                Object.Destroy(transform.GetChild(i).gameObject);
     }
 
     public static float GetRandomPercent => Random.Range(0, 1f);
