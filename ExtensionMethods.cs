@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -10,6 +11,29 @@ public static class ExtensionMethods
 {
     private const float DefaultMovementSpeed = 5;
 
+    private const int SecondsInHour = 60 * 60;
+    private const int SecondsInDay = SecondsInHour * 24;
+    public static string ToTimeString(this float seconds, int fontSizeOfLetter = -1)
+    {
+        if (seconds <= 60)
+            return scaledLabel(seconds, "c.");
+        
+        if (seconds <= SecondsInHour)
+            return scaledLabel(seconds / 60, "м.");
+        
+        if (seconds <= SecondsInDay)
+            return scaledLabel(seconds / SecondsInHour, "ч.");
+
+        return scaledLabel(seconds / SecondsInDay,"д.");
+
+        string scaledLabel(float value, string letter)
+        {
+            return Mathf.CeilToInt(value) + 
+                (fontSizeOfLetter < 0 ? " " + letter : 
+                " <size=" + fontSizeOfLetter + ">" + letter + "</size>");
+        }
+    }
+    
     public static IEnumerator MoveTo(this Transform transform, Vector3 target, float speed = DefaultMovementSpeed, 
         Action callback = null)
     {
