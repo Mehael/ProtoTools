@@ -198,6 +198,16 @@ public static class ExtensionMethods
         return Quaternion.Euler(0f, 0f, rot_z - 90);
     }
 
+    public static float GetAngle(this Vector2 vector)
+    {
+        return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
+    }
+
+    public static Quaternion GetVelocity(this float angle)
+    {
+        return Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+    
     public static Transform GetRandomChild(this Transform transform)
     {
         return transform.GetChild(Random.Range(0, transform.childCount));
